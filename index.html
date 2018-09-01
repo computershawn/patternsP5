@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+Props due to Matthew Epler for the video tutorial and Ruth Lin
+of RISD. This work is inspired by the design system she created
+for the school's 2017 Commencement program.
+-->
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="/scripts/ui.js"></script>
+    <script src="/libraries/p5.min.js"></script>
+    <script src="/libraries/p5.svg.js"></script>
+    <script src='/libraries/p5.dom.js'></script>
+    <script src="/scripts/helpers.js"></script>
+    <script src="/scripts/Crystal.js"></script>
+    <script src="/scripts/sketch.js"></script>
+    <script src="/scripts/Layers.js"></script>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAALElEQVQYV2NUVFScycjImMaABhiVlJT+owuC+MRJ/P//P52RkXEm8TqQ7QIAsC0MZRvt0rwAAAAASUVORK5CYII=) repeat;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sidebar" class="sidebar">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="72px" height="30px" viewBox="0 0 72 30" enable-background="new 0 0 72 30" xml:space="preserve">
+        <defs></defs>
+        <g>
+        	<rect x="12" fill="#FFFFFF" width="4" height="10"></rect>
+        	<rect x="12" y="20" fill="#FFFFFF" width="4" height="10"></rect>
+        </g>
+        <g>
+        	<rect x="3.3" y="5" transform="matrix(0.5 -0.866 0.866 0.5 -5.9952 9.616)" fill="#FFFFFF" width="4" height="10"></rect>
+        	<rect x="20.7" y="15" transform="matrix(0.5 -0.866 0.866 0.5 -5.9952 29.616)" fill="#FFFFFF" width="4" height="10"></rect>
+        </g>
+        <g>
+        	<rect x="3.3" y="15" transform="matrix(-0.5 -0.866 0.866 -0.5 -9.3253 34.616)" fill="#FFFFFF" width="4" height="10"></rect>
+        	<rect x="20.7" y="5" transform="matrix(-0.5 -0.866 0.866 -0.5 25.3157 34.616)" fill="#FFFFFF" width="4" height="10"></rect>
+        </g>
+        <g>
+          <circle fill="#FFFFFF" cx="2" cy="15" r="1.4"></circle>
+          <circle fill="#FFFFFF" cx="26" cy="15" r="1.4"></circle>
+          <circle fill="#FFFFFF" cx="8" cy="25.4" r="1.4"></circle>
+          <circle fill="#FFFFFF" cx="20" cy="4.6" r="1.4"></circle>
+          <circle fill="#FFFFFF" cx="20" cy="25.4" r="1.4"></circle>
+          <circle fill="#FFFFFF" cx="8" cy="4.6" r="1.4"></circle>
+        </g>
+        <rect fill="none" width="72" height="30"></rect>
+      </svg>
+      <!-- Our ui element containers go here -->
+    </div>
+    <!-- <button onclick="sayHi()">say hi</button> -->
+  </body>
+</html>
