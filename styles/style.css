@@ -107,11 +107,11 @@ body {
 }
 
 .transform {
-  -webkit-transition: width ease-out .25s;
-  -moz-transition: width ease-out .25s;
-  -o-transition: width ease-out .25s;
-  -ms-transition: width ease-out .25s;
-  transition: width ease-out .25s
+  -webkit-transition: width ease-out .2s;
+  -moz-transition: width ease-out .2s;
+  -o-transition: width ease-out .2s;
+  -ms-transition: width ease-out .2s;
+  transition: width ease-out .2s
 }
 
 .transform-active {
@@ -120,11 +120,11 @@ body {
 
 .fadable {
   opacity: 0;
-  -webkit-transition: opacity ease-out .25s;
-  -moz-transition: opacity ease-out .25s;
-  -o-transition: opacity ease-out .25s;
-  -ms-transition: opacity ease-out .25s;
-  transition: opacity ease-out .25s
+  -webkit-transition: opacity ease-out .2s;
+  -moz-transition: opacity ease-out .2s;
+  -o-transition: opacity ease-out .2s;
+  -ms-transition: opacity ease-out .2s;
+  transition: opacity ease-out .2s
 }
 
 .fadable-active {

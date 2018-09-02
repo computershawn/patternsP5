@@ -1,24 +1,23 @@
 /*
-  Props due to Matthew Epler for the video tutorial
-  www.youtube.com/playlist?list=PLyRZnpOSgMj3K8AV2I6UldnvTj6d_Zrf0
-  and Ruth Lin of RISD. This work is inspired by the
-  design system she created for her school's 2017
-  Commencement program.
+Thanks to
+  * Matthew Epler (https://mepler.com/) for the generative shapes tutorial
+  * Ruth Lin (https://ruthl.in/) of RISD, whose design project inspired this
+  * P5.js (https://p5js.org/) for making it easy to code graphics for the web
 */
 
 const SCALE = .5
-const CRYSTAL_SIZE = SCALE * 100
-const OFFSET = CRYSTAL_SIZE/2
+let crystalSize
 
 let crystal0, crystal1
 let rectGrid1 = [], rectGrid2 = []
 let triangleGrid1, triangleGrid2
-let triGridSide = 72  // Length of a triangle side
+let triGridSide = 72 // Length of a triangle side when using triangle grid
 let l
-let n = 5
-let d = 160
+let n = 5 // Rows and columns when using rectangle grid
+let d = 160 // Horiz/vert distance between shapes when using rectangle grid
 let gridType = "rec"
 let layerStatus = [true, true]
+let bgColor = '#1c1c1c'
 
 function setup() {
   const w = 600
@@ -42,7 +41,9 @@ function setup() {
   let selDefault = 4
   select0.value = selDefault
 
+  crystalSize = randomCrystalSize()
   crystal0 = new Crystal(selDefault)
+  crystalSize = randomCrystalSize()
   crystal1 = new Crystal(selDefault)
 
   rectMode(CENTER)
@@ -51,20 +52,16 @@ function setup() {
 
 function refreshShapes(evt) {
   let s = parseInt(document.getElementById('select0').value);
+  crystalSize = randomCrystalSize()
   crystal0 = new Crystal(s)
+  crystalSize = randomCrystalSize()
   crystal1 = new Crystal(s)
   redraw()
 }
-// function refreshShapes(evt) {
-//   let s = parseInt(document.getElementById('select0').value);
-//   // crystal0 = new Crystal(s)
-//   // crystal1 = new Crystal(s)
-//   // redraw()
-//   if(s === 3 || s === 6) {
-//     let r = document.getElementById("radio-hex")
-//     if(!r.checked) r.click()
-//   }
-// }
+
+const randomCrystalSize = () => {
+  return SCALE * 10 * round(random(4, 12))
+}
 
 function refreshGrid(evt) {
   gridType = evt.target.value
@@ -125,7 +122,7 @@ function renderGridTri() {
 ////////////////
 
 function draw() {
-  background('#1c1c1c')
+  background(bgColor)
   switch(gridType) {
     case "rec":
       renderGridRec()

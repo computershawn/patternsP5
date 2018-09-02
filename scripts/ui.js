@@ -59,7 +59,6 @@ const makePalette = () => {
     d0.appendChild(d3)
     swatchesContainer.appendChild(d0)
   }
-  //sb.appendChild(swatchesContainer)
   sb.insertBefore(swatchesContainer, githubLogo)
 }
 
@@ -87,7 +86,6 @@ function makeButtons() {
   buttons.appendChild(btn0)
   buttons.appendChild(btn1)
 
-  //sb.appendChild(buttons)
   sb.insertBefore(buttons, githubLogo)
 }
 
@@ -112,7 +110,6 @@ function makeSelect() {
 
   sel.addEventListener("change", refreshShapes)
   dropdowns.appendChild(sel)
-  //sb.appendChild(dropdowns)
   sb.insertBefore(dropdowns, githubLogo)
 }
 
@@ -160,7 +157,6 @@ function makeRadioBtns() {
   radios.appendChild(radio0Cont)
   radios.appendChild(radio1Cont)
 
-  //sb.appendChild(radios)
   sb.insertBefore(radios, githubLogo)
 }
 
@@ -206,7 +202,6 @@ function makeLayerSwitches() {
   layerSwitches.appendChild(switch0Cont)
   layerSwitches.appendChild(switch1Cont)
 
-  //sb.appendChild(layerSwitches)
   sb.insertBefore(layerSwitches, githubLogo)
 }
 

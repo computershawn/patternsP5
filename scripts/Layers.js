@@ -4,7 +4,7 @@ class Layer {
     this.numShapes = this.sides
     this.angle = TWO_PI/this.numShapes
     this.stepsOut = 8
-    this.singleStep = (CRYSTAL_SIZE/2) / this.stepsOut
+    this.singleStep = (crystalSize/2) / this.stepsOut
     this.thinStroke = 2
     this.layerColor = selectRandomFromPalette()
   }
@@ -16,8 +16,8 @@ class Layer {
 class Circles extends Layer {
   constructor (n) {
     super(n)
-    this.shapeSize = (CRYSTAL_SIZE / 2) * random(0.93-.5, 0.93+.5)
-    this.position = (CRYSTAL_SIZE / 2) - this.shapeSize / 2 * random(0.8, 1.2)
+    this.shapeSize = (crystalSize / 2) * random(0.93-.5, 0.93+.5)
+    this.position = (crystalSize / 2) - this.shapeSize / 2 * random(0.8, 1.2)
   }
   render () {
     strokeWeight(1)
@@ -43,7 +43,7 @@ class SimpleLines extends Layer {
     this.numSteps = randomSelectTwo() ? this.stepsOut : floor(this.stepsOut * 1.25)
     this.numShapes = randomSelectTwo() ? this.sides : this.sides * 2
     this.angle = TWO_PI/this.numShapes
-    this.step = (CRYSTAL_SIZE/2) / this.numSteps
+    this.step = (crystalSize/2) / this.numSteps
     this.start = floor(random(0, this.numSteps))
     this.stop = floor(random(this.start, this.numSteps + 1))
     this.weight = this.thinStroke
@@ -87,7 +87,7 @@ class DottedLines extends Layer {
       if(this.sides === 3) rotate(radians(90))
       for(let i=0; i < this.numShapes; i++) {
         // fill(this.stepColors[i])
-        for(let x=this.centerOffset; x < CRYSTAL_SIZE/2; x+=this.singleStep) {
+        for(let x=this.centerOffset; x < crystalSize/2; x+=this.singleStep) {
           //line(this.start * this.step, 0, this.stop * this.step, 0)
           rect(x, 0, this.shapeSize, this.shapeSize)
         }
@@ -108,7 +108,7 @@ class DottedLines extends Layer {
 class OutlineShape extends Layer {
   constructor () {
     super()
-    this.radius = CRYSTAL_SIZE/2
+    this.radius = crystalSize/2
     this.hexagonTrue = randomSelectTwo()
   }
   render () {
@@ -210,8 +210,8 @@ class SteppedPolygons extends Layer {
      // for(let i = 0; i < this.numSteps; i++) {
      //   this.stepColors.push(selectRandomFromPalette())
      // }
-     this.centerOffset = (CRYSTAL_SIZE / 2) * 0.15
-     this.singleStep = ((CRYSTAL_SIZE / 2) - this.centerOffset) / this.numSteps
+     this.centerOffset = (crystalSize / 2) * 0.15
+     this.singleStep = ((crystalSize / 2) - this.centerOffset) / this.numSteps
      this.alphas = []
      this.stepColors = []
      this.showShape = []
