@@ -11,9 +11,9 @@ const CRYSTAL_SIZE = SCALE * 100
 const OFFSET = CRYSTAL_SIZE/2
 
 let crystal0, crystal1
-let coords = []
-let coords1 = []
-let triangleGrid
+let rectGrid1 = [], rectGrid2 = []
+let triangleGrid1, triangleGrid2
+let triGridSide = 72  // Length of a triangle side
 let l
 let n = 5
 let d = 160
@@ -23,23 +23,21 @@ let layerStatus = [true, true]
 function setup() {
   const w = 600
   const h = 600
+  let cnv = createCanvas(w, h, SVG)
 
-  //l = SCALE * (n-1) * Math.sqrt(2 * d * d) / 2
   l = SCALE * (n-1) * d / 2
 
   for(let i = 0; i < n; i++) {
     for(let j = 0; j < n; j++) {
-      coords.push([i * d * SCALE, j * d * SCALE])
-      if(i < n-1 && j < n-1) coords1.push([i * d * SCALE, j * d * SCALE])
+      rectGrid1.push([i * d * SCALE, j * d * SCALE])
+      if(i < n-1 && j < n-1) rectGrid2.push([i * d * SCALE, j * d * SCALE])
     }
   }
 
   let triGridCols = 6   // Number of cols in triangle grid
   let triGridRows = 7   // Number of rows in triangle grid
-  let triGridSide = 72  // Length of a triangle side
-  triangleGrid = getTriangleGrid(w, h, triGridCols, triGridRows, triGridSide)
-
-  let cnv = createCanvas(w, h, SVG)
+  triangleGrid1 = getTriangleGrid(w, h, triGridCols, triGridRows, triGridSide, true)
+  triangleGrid2 = getTriangleGrid(w, h, triGridCols, triGridRows, triGridSide, false)
 
   let selDefault = 4
   select0.value = selDefault
@@ -57,6 +55,16 @@ function refreshShapes(evt) {
   crystal1 = new Crystal(s)
   redraw()
 }
+// function refreshShapes(evt) {
+//   let s = parseInt(document.getElementById('select0').value);
+//   // crystal0 = new Crystal(s)
+//   // crystal1 = new Crystal(s)
+//   // redraw()
+//   if(s === 3 || s === 6) {
+//     let r = document.getElementById("radio-hex")
+//     if(!r.checked) r.click()
+//   }
+// }
 
 function refreshGrid(evt) {
   gridType = evt.target.value
@@ -76,35 +84,12 @@ function exportSVG() {
   saveSVG(filename)
 }
 
-// function renderGridRec() {
-//   // Layer 1
-//   if(layerStatus[0]) {
-//     push()
-//     translate(width/2, height/2-l)
-//     rotate(radians(45))
-//     for(let c of coords) {
-//       crystal0.render(c[0], c[1])
-//     }
-//     pop()
-//   }
-//
-//   // Layer 2
-//   if(layerStatus[1]) {
-//     push()
-//     translate(width/2, height/2-l+l/(n-1))
-//     rotate(radians(45))
-//     for(let c of coords1) {
-//       crystal1.render(c[0], c[1])
-//     }
-//     pop()
-//   }
-// }
 function renderGridRec() {
   // Layer 1
   if(layerStatus[0]) {
     push()
     translate(width/2-l, height/2-l)
-    for(let c of coords) {
+    for(let c of rectGrid1) {
       crystal0.render(c[0], c[1])
     }
     pop()
@@ -114,7 +99,7 @@ function renderGridRec() {
   if(layerStatus[1]) {
     push()
     translate(width/2-l+SCALE*d/2, height/2-l+SCALE*d/2)
-    for(let c of coords1) {
+    for(let c of rectGrid2) {
       crystal1.render(c[0], c[1])
     }
     pop()
@@ -122,8 +107,15 @@ function renderGridRec() {
 }
 
 function renderGridTri() {
-  for(let item of triangleGrid) {
-    crystal0.render(item[0], item[1])
+  // Layer 1
+  if(layerStatus[0]) {
+    triangleGrid1.map(item=>crystal0.render(item[0], item[1]))
+  }
+
+  // Layer 2
+  let dx = triGridSide/2, dy = dx * Math.tan(radians(30))
+  if(layerStatus[1]) {
+    triangleGrid2.map(item=>crystal1.render(dx + item[0], dy + item[1]))
   }
 }
 

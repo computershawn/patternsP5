@@ -10,51 +10,15 @@ let palette = [
 ]
 let defaultColors = [0, 4, 6]
 let colorsSelected = palette.map((c,i)=>(defaultColors.includes(i)))
-//let colorsSelected = palette.map(()=>false)
-let uiCheckboxes = []
-
-
-const selectMe = (n) => {
-  let cb = document.getElementById(`cb${n}`)
-  let status = cb.checked
-  cb.checked = !status
-}
-
-// const makePaletteOLD = () => {
-//   let sb = document.getElementById("sidebar")
-//
-//   let swatchesWrapper = document.createElement("DIV")
-//   swatchesWrapper.classList.add("swatch-wrapper")
-//
-//   for(let i=0; i < palette.length; i++) {
-//     let temp = document.createElement("DIV")
-//     temp.classList.add("swatch-cont")
-//     temp.innerHTML = `<div class="checkbox-cont"><input id='cb${i}' type="checkbox" name="color${i}" value=${i}></div><div class="swatch" onclick="selectMe(${i})">&nbsp;</div>`
-//     swatchesWrapper.appendChild(temp)
-//     uiCheckboxes.push(temp)
-//   }
-//   sb.appendChild(swatchesWrapper)
-//   for(let item of defaultColors) {
-//     let thing = document.getElementById(`cb${item}`)
-//     thing.checked = true
-//   }
-//   let swatches = document.getElementsByClassName('swatch')
-//   let r, g, b
-//   for (let i = 0; i < swatches.length; i++) {
-//     r = palette[i][0]
-//     g = palette[i][1]
-//     b = palette[i][2]
-//     swatches[i].style.backgroundColor = `rgb(${r},${g},${b})`;
-//   }
-// }
 
 function toggleSwatch(evt) {
   let s = colorsSelected[evt.target.dataset.index]
   colorsSelected[evt.target.dataset.index] = !s
-  //console.log(colorsSelected)
 }
+
 const makePalette = () => {
   let sb = document.getElementById("sidebar")
+  let githubLogo = document.getElementById("github-logo-wrapper")
   let swatchesContainer = document.createElement("DIV")
   swatchesContainer.classList.add('swatch-wrapper')
   for(let i=0; i < palette.length; i++) {
@@ -63,29 +27,45 @@ const makePalette = () => {
     let b = palette[i][2]
     let d0 = document.createElement("DIV")
     let d1 = document.createElement("DIV")
+    let d2 = document.createElement("DIV")
+    let d3 = document.createElement("DIV")
 
-    d0.id = `sw${i}-cont`
-    d0.classList.add("switch-cont")
+    d0.classList.add("switch-cont-wrapper")
+    d3.classList.add("switch-tick","fadable")
 
-    d1.id = `sw${i}`
-    d1.classList.add("swatch-switch", "transform")
-    d1.dataset.index = (i)
-    d1.style.backgroundColor = `rgb(${r},${g},${b})`
-    if(defaultColors.includes(i)) d1.classList.add("transform-active")
+    d1.id = `sw${i}-cont`
+    d1.classList.add("switch-cont")
 
-    d0.addEventListener("click", () => {
-      d1.classList.toggle("transform-active")
+    d2.id = `sw${i}`
+    d2.classList.add("swatch-switch", "transform")
+    d2.dataset.index = (i)
+    d2.style.backgroundColor = `rgb(${r},${g},${b})`
+
+    // If this swatch is one of the default colors, add classes
+    // to show that the div is active
+    if(defaultColors.includes(i)){
+      d2.classList.add("transform-active")
+      d3.classList.add("fadable-active")
+    }
+
+    d1.addEventListener("click", () => {
+      d2.classList.toggle("transform-active")
+      d3.classList.toggle("fadable-active")
     })
-    d1.addEventListener("transitionend", toggleSwatch)
+    d2.addEventListener("transitionend", toggleSwatch)
 
+    d1.appendChild(d2)
     d0.appendChild(d1)
+    d0.appendChild(d3)
     swatchesContainer.appendChild(d0)
   }
-  sb.appendChild(swatchesContainer)
+  //sb.appendChild(swatchesContainer)
+  sb.insertBefore(swatchesContainer, githubLogo)
 }
 
 function makeButtons() {
-	let sb = document.getElementById("sidebar")
+  let sb = document.getElementById("sidebar")
+  let githubLogo = document.getElementById("github-logo-wrapper")
 
   let buttons = document.createElement("DIV")
   buttons.classList.add("buttons-wrapper")
@@ -107,10 +87,14 @@ function makeButtons() {
   buttons.appendChild(btn0)
   buttons.appendChild(btn1)
 
-  sb.appendChild(buttons)
+  //sb.appendChild(buttons)
+  sb.insertBefore(buttons, githubLogo)
 }
 
 function makeSelect() {
+  let sb = document.getElementById("sidebar")
+  let githubLogo = document.getElementById("github-logo-wrapper")
+
   let dropdowns = document.createElement("DIV")
   dropdowns.classList.add("dropdowns-wrapper")
 
@@ -128,10 +112,14 @@ function makeSelect() {
 
   sel.addEventListener("change", refreshShapes)
   dropdowns.appendChild(sel)
-  document.getElementById("sidebar").appendChild(dropdowns)
+  //sb.appendChild(dropdowns)
+  sb.insertBefore(dropdowns, githubLogo)
 }
 
 function makeRadioBtns() {
+  let sb = document.getElementById("sidebar")
+  let githubLogo = document.getElementById("github-logo-wrapper")
+
   let radios = document.createElement("FORM")
   radios.classList.add("radios-wrapper")
 
@@ -140,23 +128,23 @@ function makeRadioBtns() {
   let radio1 = document.createElement("INPUT")
   let label1 = document.createElement("LABEL")
 
-  label0.htmlFor = "radio0"
+  label0.htmlFor = "radio-rec"
   label0.innerHTML = " Rec"
   radio0.setAttribute("type", "radio")
   radio0.setAttribute("name", "gridSelect")
   radio0.setAttribute("value", "rec")
-  radio0.setAttribute("id", "radio0")
+  radio0.setAttribute("id", "radio-rec")
 
   radio0.checked = true
   radio0.addEventListener("change", refreshGrid)
   radio1.addEventListener("change", refreshGrid)
 
-  label1.htmlFor = "radio1"
+  label1.htmlFor = "radio-hex"
   label1.innerHTML = " Hex"
   radio1.setAttribute("type", "radio")
   radio1.setAttribute("name", "gridSelect")
   radio1.setAttribute("value", "hex")
-  radio1.setAttribute("id", "radio1")
+  radio1.setAttribute("id", "radio-hex")
 
   let radio0Cont = document.createElement("DIV")
   let radio1Cont = document.createElement("DIV")
@@ -172,10 +160,14 @@ function makeRadioBtns() {
   radios.appendChild(radio0Cont)
   radios.appendChild(radio1Cont)
 
-  document.getElementById("sidebar").appendChild(radios)
+  //sb.appendChild(radios)
+  sb.insertBefore(radios, githubLogo)
 }
 
 function makeLayerSwitches() {
+  let sb = document.getElementById("sidebar")
+  let githubLogo = document.getElementById("github-logo-wrapper")
+
   let layerSwitches = document.createElement("DIV")
   layerSwitches.classList.add("switches-wrapper")
 
@@ -214,14 +206,14 @@ function makeLayerSwitches() {
   layerSwitches.appendChild(switch0Cont)
   layerSwitches.appendChild(switch1Cont)
 
-  document.getElementById("sidebar").appendChild(layerSwitches)
+  //sb.appendChild(layerSwitches)
+  sb.insertBefore(layerSwitches, githubLogo)
 }
 
 ////////////////
 
 window.onload = () => {
   makePalette()
-  //makePalette2()
   makeSelect()
   makeLayerSwitches()
   makeRadioBtns()

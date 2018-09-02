@@ -60,20 +60,6 @@ const radians = (angleDegrees) => {
   return angleDegrees * Math.PI / 180
 }
 
-// const selectRandomFromPalette = () => {
-//   let temp = []
-//   for(let i = 0; i < uiCheckboxes.length; i++) {
-//     let s = document.getElementById(`cb${i}`).checked
-//     temp.push(s)
-//   }
-//   let paletteSubset = palette.filter((c, i)=>temp[i])
-//   if(paletteSubset.length===0) {
-//     return color(255)
-//   }
-//   let rando = floor(random(0, paletteSubset.length))
-//   return paletteSubset[rando]
-// }
-
 const selectRandomFromPalette = () => {
   let paletteSubset = palette.filter((c, i)=>colorsSelected[i])
   if(paletteSubset.length===0) {
@@ -124,18 +110,40 @@ const layerConstructors = [
   }
 ]
 
-const getTriangleGrid = (wd, ht, cols, rows, sideLen) => {
+// const getTriangleGrid = (wd, ht, cols, rows, sideLen) => {
+// 	let dx = 1, dy = (dx/2)/Math.tan(radians(30))
+// 	let x, y, pts = []
+//   let w = (cols-1) * dx * sideLen
+//   let h = (rows-1) * dy * sideLen
+//   for(let i = 0; i < rows; i++) {
+//     y = i * dy
+//     let c = (i % 2 == 0) ? cols : cols - 1
+//     for(let j = 0; j < c; j++) {
+//       x = j * dx
+//       if(i % 2 == 1) x += dx/2
+//       pts.push([wd/2 + sideLen * x - w/2, ht/2 + sideLen * y - h/2])
+//     }
+//   }
+// 	return pts
+// }
+
+const getTriangleGrid = (wd, ht, cols, rows, sideLen, outer) => {
 	let dx = 1, dy = (dx/2)/Math.tan(radians(30))
 	let x, y, pts = []
   let w = (cols-1) * dx * sideLen
   let h = (rows-1) * dy * sideLen
-  for(let i = 0; i < rows; i++) {
+  let r = outer ? rows : rows - 1
+  r = rows
+  for(let i = 0; i < r; i++) {
     y = i * dy
     let c = (i % 2 == 0) ? cols : cols - 1
+    if(!outer) {
+      c = (i % 2 == 0) ? cols-1 : cols - 2
+    }
     for(let j = 0; j < c; j++) {
       x = j * dx
       if(i % 2 == 1) x += dx/2
-			pts.push([wd/2 + sideLen * x - w/2, ht/2 + sideLen * y - h/2])
+      pts.push([wd/2 + sideLen * x - w/2, ht/2 + sideLen * y - h/2])
     }
   }
 	return pts

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <!--
-Props due to Matthew Epler for the video tutorial and Ruth Lin
-of RISD. This work is inspired by the design system she created
-for the school's 2017 Commencement program.
+Thanks to
+  * Matthew Epler (https://mepler.com/) for the generative shapes tutorial
+  * Ruth Lin (https://ruthl.in/) of RISD, whose design project inspired this
+  * P5.js (https://p5js.org/) for making it easy to code graphics for the web
 -->
 <html>
   <head>
+    <title>patterns</title>
     <link rel="stylesheet" href="/styles/style.css">
     <script src="/scripts/ui.js"></script>
     <script src="/libraries/p5.min.js"></script>
@@ -25,7 +27,7 @@ for the school's 2017 Commencement program.
   </head>
   <body>
     <div id="sidebar" class="sidebar">
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="72px" height="30px" viewBox="0 0 72 30" enable-background="new 0 0 72 30" xml:space="preserve">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="48px" height="20px" viewBox="0 0 72 30" enable-background="new 0 0 72 30" xml:space="preserve">
         <defs></defs>
         <g>
         	<rect x="12" fill="#FFFFFF" width="4" height="10"></rect>
@@ -49,6 +51,16 @@ for the school's 2017 Commencement program.
         </g>
         <rect fill="none" width="72" height="30"></rect>
       </svg>
+
+      <div class="logo">
+        <div>pattern</div>
+        <div>builder</div>
+      </div>
+      <div id="github-logo-wrapper" class="github-wrapper">
+      	<a href="https://github.com/computershawn/patternsP5" target="_blank">
+          <img class="github-logo" src="images/github-mark.png" alt="GitHub">
+        </a>
+      </div>
       <!-- Our ui element containers go here -->
     </div>
     <!-- <button onclick="sayHi()">say hi</button> -->
